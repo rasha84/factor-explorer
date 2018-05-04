@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Files Explorer(PHP)</title>
+
+        <link rel="icon" type="image/png" href="img/favicon.png"/>
+        <link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet"> 
+
+        <link rel="stylesheet" href="templates/css/style.css">
+        <link rel="stylesheet" href="templates/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+
+    </head>
+    <body>
+
+        <header class="text-center" >
+            <img class='logo' src='img/File-explorer-icon.png'>
+            <h1 class="text-logo">File Explorer </h1>
+        </header>
+
+        <section class="container">
+            <div class="table-responsive"> 
+                <legend class="title">
+                   <h2>
+                        <i class="fa fa-folder-open" style="font-size:48px;color:#FBD22A"aria-hidden="true"></i>  
+                        {% if folder == false %}
+                          My_Documents   
+                        {% else %}
+                          {{ folder }}  
+                        {% endif %}
+                    </h2> 
+                
+                </legend>
+                <table class="table table-striped">
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Last modification</th>
+                    <th scope="col">Owner</th>                    
+                    <th scope="col">Permission</th>
+
+                    {% for data in mydata %}
+                
+                        {% if data.type == true %}
+                            <tr>
+                                <td class="name">
+                                    <img class='icons-f' src='img/folder.png'>
+                                    <a href="?data={{data.path}}">{{ data.filename }}</a>
+                                </td>
+                                <td>Folder</td>
+                                <td class="size">   </td>
+                                <td class="date"> {{ data.date }} </td>
+                                <td class="user"> {{data.user}} </td>           
+                                <td class="permission"> {{data.perm}} </td>
+                                
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td class="name">
+                                    <img class='icons-f' src=' {{ data.icon}}'>
+                                    <a href="{{data.path}}" download>{{ data.filename }}   <i class="fas fa-download"></i></a>                                     
+                                </td>
+                                <td class="type">{{ data.filetype }}</td>
+                                <td class="size"> {{data.size}} </td>
+                                <td class="date"> {{ data.date }} </td>
+                                <td class="user"> {{data.user}} </td>
+                                <td class="permission"> {{data.perm}} </td>
+                            </tr>
+                        {% endif %}
+                        
+                    {% endfor %}
+
+                    
+                </table>
+            </div>
+
+        </section>
+
+
+    </body>
+</html>
